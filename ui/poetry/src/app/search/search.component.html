@@ -1,1 +1,15 @@
-<p>search works!</p>
+<div class="container">
+  <mat-form-field>
+    <mat-label>Author</mat-label>
+    <input [(ngModel)]="author" matInput (keyup)="onKeyUp($event)">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Title</mat-label>
+    <input [(ngModel)]="title" matInput (keyup)="onKeyUp($event)">
+  </mat-form-field>
+  <button mat-button (click)="onSearch()">
+    <mat-icon>search</mat-icon>
+    Search
+  </button>
+</div>
+<div class="count-indicator">{{resultCount}} {{resultCount === 1 ? 'result' : 'results'}}</div>

@@ -1,0 +1,20 @@
+.container {
+  overflow-y: auto;
+}
+.title {
+  font-size: 20px;
+}
+.author {
+  color: #393a34;
+  span {
+    font-weight: bold;
+    font-size: 15px;
+  }
+}
+.lines {
+  margin-top: 20px;
+}
+
+.poem-result {
+  margin: 10px 0px;
+}

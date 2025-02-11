@@ -16,8 +16,9 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {BrowserModule} from "@angular/platform-browser";
 import {SearchComponent} from "./search/search.component";
 import {ResultsComponent} from "./results/results.component";
-import {AuthorFilterComponent} from "./author-filter/author-filter.component";
-import {TitleFilterComponent} from "./title-filter/title-filter.component";
+import {FilterComponent} from "./filter/filter.component";
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from "@angular/material/form-field";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {TitleFilterComponent} from "./title-filter/title-filter.component";
   bootstrap: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     LayoutModule,
     MatToolbarModule,
@@ -39,13 +41,13 @@ import {TitleFilterComponent} from "./title-filter/title-filter.component";
     MatSnackBarModule,
     SearchComponent,
     ResultsComponent,
-    AuthorFilterComponent,
-    TitleFilterComponent
+    FilterComponent
   ],
   exports: [
   ],
   providers: [
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}},
     provideHttpClient()
   ]
 })

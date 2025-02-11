@@ -1,1 +1,39 @@
-<p>results works!</p>
+<div class="container">
+  <div *ngIf="!poems.length">
+    No results found.
+  </div>
+  <div class="poem-result" *ngFor="let poem of poems;">
+    <mat-card appearance="outlined">
+      <mat-card-header>
+
+        <mat-card-subtitle>
+
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>{{poem.title?.length? "\"" + poem.title + "\"" : "(Unknown title)"}}</mat-card-title>
+        <mat-card-subtitle>by <span>{{poem['author'] ?? "(Unknown Author)"}}</span></mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="lines">
+          <div *ngFor="let line of poem.lines ?? []" class="line">
+            {{line}}
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+<!--    <div class="title">-->
+<!--      {{poem.title?.length? "\"" + poem.title + "\"" : "(Unknown title)"}}-->
+<!--    </div>-->
+<!--    <div class="author">-->
+<!--      by <span>{{poem['author'] ?? "(Unknown Author)"}}</span>-->
+<!--    </div>-->
+<!--    <div class="lines">-->
+<!--      <div *ngFor="let line of poem.lines ?? []" class="line">-->
+<!--        {{line}}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <hr>-->
+  </div>
+</div>

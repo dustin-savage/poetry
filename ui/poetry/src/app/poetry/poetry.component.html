@@ -4,8 +4,8 @@
   </div>
   <div class="container">
     <div class="filter-panel">
-      <app-author-filter></app-author-filter>
-      <app-title-filter></app-title-filter>
+      <app-filter [filterLabel]="'Author'" [filterField]="'author'"></app-filter>
+      <app-filter [filterLabel]="'Title'" [filterField]="'title'"></app-filter>
     </div>
     <div class="results-panel">
       <app-results></app-results>

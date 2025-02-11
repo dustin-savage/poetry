@@ -3,11 +3,10 @@
   height: calc(100% - 64px);
   width: calc(100%);
   .search-panel {
-    display: flex;
-    //border: 1px solid black;
-    //border-bottom: none;
-    margin: 15px;
+    display: block;
     height: calc(20vh - 64px - 30px);
+    width: calc(100% - 30px);
+    margin: 25px 15px 15px;
   }
   .container {
     display: flex;
@@ -16,14 +15,13 @@
       display: flex;
       flex-direction: column;
       border: 1px solid black;
-      width: 38vw;
+      width: 25vw;
     }
     .results-panel {
-      display: flex;
       border: 1px solid black;
-      border-left: none;
-      width: 62vw;
-      padding: 15px;
+      width: 75vw;
+      padding: 15px 30px;
+      overflow-y: auto;
     }
   }
 }

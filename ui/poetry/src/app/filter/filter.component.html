@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="header">
+    {{filterLabel}}
+    <mat-icon (click)="onClearFilter()">close</mat-icon>
+  </div>
+  <div class="filter-values">
+    <div class="filter-value" *ngFor="let value of filterValues;" (click)="onValueClick(value)">
+      {{value}}
+    </div>
+  </div>
+</div>
