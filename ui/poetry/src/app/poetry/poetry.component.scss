@@ -1,3 +1,29 @@
 .poetry {
-
+  position: fixed;
+  height: calc(100% - 64px);
+  width: calc(100%);
+  .search-panel {
+    display: flex;
+    //border: 1px solid black;
+    //border-bottom: none;
+    margin: 15px;
+    height: calc(20vh - 64px - 30px);
+  }
+  .container {
+    display: flex;
+    height: calc(80vh);
+    .filter-panel {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid black;
+      width: 38vw;
+    }
+    .results-panel {
+      display: flex;
+      border: 1px solid black;
+      border-left: none;
+      width: 62vw;
+      padding: 15px;
+    }
+  }
 }

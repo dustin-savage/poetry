@@ -13,6 +13,11 @@ import {provideHttpClient} from "@angular/common/http";
 import {PoetryComponent} from "./poetry/poetry.component";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {BrowserModule} from "@angular/platform-browser";
+import {SearchComponent} from "./search/search.component";
+import {ResultsComponent} from "./results/results.component";
+import {AuthorFilterComponent} from "./author-filter/author-filter.component";
+import {TitleFilterComponent} from "./title-filter/title-filter.component";
 
 @NgModule({
   declarations: [
@@ -23,6 +28,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
   ],
   bootstrap: [AppComponent],
   imports: [
+    BrowserModule,
     AppRoutingModule,
     LayoutModule,
     MatToolbarModule,
@@ -30,7 +36,11 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatSidenavModule,
     MatIconModule,
     MatDateFnsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    SearchComponent,
+    ResultsComponent,
+    AuthorFilterComponent,
+    TitleFilterComponent
   ],
   exports: [
   ],

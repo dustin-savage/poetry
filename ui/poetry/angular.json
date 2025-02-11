@@ -69,7 +69,6 @@
               "buildTarget": "poetry:build:production"
             },
             "development": {
-              "proxyConfig": "src/proxy.conf.json",
               "buildTarget": "poetry:build:development"
             }
           },

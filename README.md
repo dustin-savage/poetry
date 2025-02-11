@@ -7,6 +7,7 @@
 * Docker
 * Docker Compose
 * GNU Make (optional)
+* Angular CLI (optional)
 
 ## Build the app
 
