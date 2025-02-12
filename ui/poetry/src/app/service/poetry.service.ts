@@ -40,9 +40,11 @@ export class PoetryService {
     }
     ];
 
+    // Join filter name with a comma
     const filterNameStr: string = filters.filter(f => f.value.length)
       .map(f => f.name).join(",");
 
+    // Join filter values with a semicolon
     const filterValueStr: string = filters.filter(f => f.value.length)
       .map(f => f.value).join(";");
 
@@ -52,7 +54,6 @@ export class PoetryService {
     this.http.get<Poem[] | any>(url).pipe(take(1)).subscribe({
       next: poems => {
         if (Array.isArray(poems)) {
-          //this.snackbar.open("success!");
           // Notify observers
           this.poemResultUpdateEmitter.next(poems);
         } else {
@@ -60,13 +61,11 @@ export class PoetryService {
           this.poemResultUpdateEmitter.next([]);
         }
       },
-      error: this.reportError
-    });
-  }
-
-  private reportError(error: any) {
-    this.snackbar.open("Error fetching poems: " + JSON.stringify(error), undefined, {
-      duration: 10000
+      error: (err) => {
+        this.snackbar.open("Error fetching poems: " + JSON.stringify(err), undefined, {
+          duration: 10000
+        });
+      }
     });
   }
 

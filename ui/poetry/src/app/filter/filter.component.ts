@@ -32,7 +32,7 @@ export class FilterComponent {
   ngOnInit(): void {
     this.poetryService.listenForPoemResults().pipe(takeUntil(this.destroyed))
       .subscribe(poems => {
-        this.filterValues = //[...new Set(
+        this.filterValues =
           (poems || [])
             // Map poem to field value
             .map(poem => <string>(<any> poem)[this.filterField])
@@ -40,9 +40,8 @@ export class FilterComponent {
             .filter(p => p && p.length)
             // Sort alphabetically
             .sort((a, b) => a.localeCompare(b));
-        // Unique values
+        // Use set to get unique values
         this.filterValues = [...new Set(this.filterValues)];
-
 
         this.changeDetectorRef.markForCheck();
       });

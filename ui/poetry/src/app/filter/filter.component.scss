@@ -22,14 +22,13 @@
   align-items: flex-start;
   overflow-y: auto;
   height: calc(40vh - 46px);
-
   .filter-value {
     cursor: pointer;
     padding: 7px 5px;
     width: calc(100% - 18px);
     border-left: 5px solid white;
     &:hover {
-      border-left: 7px solid darkred; //rgba(64, 106, 161, 0.4); // #10163b;
+      border-left: 7px solid darkred;
     }
   }
 }
