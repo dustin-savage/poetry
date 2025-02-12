@@ -37,7 +37,7 @@ Access the UI at [http://localhost:8220](http://localhost:8220)
 ![UI](./images/ui.png)
 
 ## Deployment
-The UI is packaged as a Docker container.
+The UI is an Angular app packaged as a Docker image.
 
 ![Deployment](./images/deployment.jpg)
 
