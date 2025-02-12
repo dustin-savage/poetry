@@ -1,5 +1,6 @@
 # Poetry
 
+The poetry app is an Angular UI that fetches data from the REST API at poetrydb.org. It allows a user to filter poems by author and/or title. It also includes an interactive filter panel to show the list of authors and titles in the results.
 
 ## Prerequisites
 
@@ -46,8 +47,7 @@ The UI is an Angular app packaged as a Docker image.
 * All data will come from the https://poetrydb.org/ api.
 * UI will make REST calls to get authors and titles.
 * UI will load initially with an unfiltered list of all authors and titles.
-* Max results displayed: 1000
-* Max poem results displayed at a time: 1
+* Max filters / results displayed: 1000
 * Clicking an author is the same as typing the author in the search field and clicking search.
 * Clicking a title is the same as typing the title in the search field and clicking search.
 * Enter button can be pressed to initiate search from either input field (author or title).
