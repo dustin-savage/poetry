@@ -34,7 +34,7 @@ Access the UI at [http://localhost:8220](http://localhost:8220)
 ### Initial rough sketch:
 ![UI Sketch](./images/ui-sketch.jpg)
 
-### UI screenshot after implementing the sketch:
+### UI screenshot:
 ![UI](./images/ui.png)
 
 ## Deployment
