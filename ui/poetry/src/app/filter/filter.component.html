@@ -1,11 +1,15 @@
 <div class="container">
   <div class="header">
-    {{filterLabel}}
-    <mat-icon (click)="onClearFilter()">close</mat-icon>
+    <mat-icon (click)="onClearFilter()">{{getFilterIcon()}}</mat-icon>
+    <span class="filter-label">{{filterLabel}}</span>
+    <mat-icon class="close-icon" (click)="onClearFilter()">close</mat-icon>
   </div>
   <div class="filter-values">
-    <div class="filter-value" *ngFor="let value of filterValues;" (click)="onValueClick(value)">
-      {{value}}
-    </div>
+    <mat-spinner *ngIf="searchInProgress" [diameter]="50" color="accent" strokeWidth="2" mode="indeterminate"></mat-spinner>
+    <ng-container *ngIf="!searchInProgress">
+      <div  class="filter-value" *ngFor="let value of filterValues;" (click)="onValueClick(value)">
+        {{value}}
+      </div>
+    </ng-container>
   </div>
 </div>

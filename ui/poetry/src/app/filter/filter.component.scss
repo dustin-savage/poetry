@@ -4,15 +4,22 @@
   border-style: solid;
   border-color: black;
   border-width: 1px 0px;
-  padding: 5px;
+  padding: 8px 5px 5px;
   font-size: 18px;
   background-color: rgb(193 192 192 / 57%);
   mat-icon {
-    cursor: pointer;
-    color: #838383;
-    &:hover {
-      color: black;
+    margin-top: -3px;
+    &.close-icon {
+      cursor: pointer;
+      color: #838383;
+      &:hover {
+        color: black;
+      }
     }
+  }
+  .filter-label {
+    margin-left: 10px;
+    flex-grow: 1;
   }
 }
 
@@ -30,5 +37,9 @@
     &:hover {
       border-left: 7px solid darkred;
     }
+  }
+  mat-spinner {
+    align-self: center;
+    margin-top: 20px;
   }
 }

@@ -11,6 +11,7 @@ import {Filter} from "../model/filter";
 export class PoetryService {
   private poemResultUpdateEmitter = new ReplaySubject<Poem[]>();
   private filterUpdateEmitter = new ReplaySubject<Filter[]>();
+  private searchProgressEmitter = new ReplaySubject<boolean>();
   private maxPoemCount = "1000";
 
   constructor(private http: HttpClient,
@@ -26,7 +27,14 @@ export class PoetryService {
     return this.filterUpdateEmitter.asObservable();
   }
 
+  public listenForSearchProgressUpdates(): Observable<boolean> {
+    return this.searchProgressEmitter.asObservable();
+  }
+
   search(author: string, title: string): void {
+    // Notify that Search is in progress
+    this.searchProgressEmitter.next(true);
+
     // Build filters
     const filters = [{
       name: "author",
@@ -54,10 +62,10 @@ export class PoetryService {
     this.http.get<Poem[] | any>(url).pipe(take(1)).subscribe({
       next: poems => {
         if (Array.isArray(poems)) {
-          // Notify observers
+          // Notify observers of results
           this.poemResultUpdateEmitter.next(poems);
         } else {
-          // No results found.
+          // Notify observers: No results found.
           this.poemResultUpdateEmitter.next([]);
         }
       },
@@ -65,6 +73,10 @@ export class PoetryService {
         this.snackbar.open("Error fetching poems: " + JSON.stringify(err), undefined, {
           duration: 10000
         });
+      },
+      complete: () => {
+        // Notify that search is no longer in progress
+        this.searchProgressEmitter.next(false);
       }
     });
   }
