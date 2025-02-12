@@ -65,5 +65,6 @@ The UI is an Angular app packaged as a Docker image.
 - Allow searching text within the lines of the poems.
 - When populating the filters:
   - Do a separate search that only returns title and author.
-  - We could fetch a larger number filters with a smaller payload.
-  - We could configure the poemcount differently for filters vs poems. For example, only show 5 actual poem results, but show all the authors in the filter panel.
+  - Fetch a larger number filters with a smaller payload.
+  - Configure the poemcount differently for filters vs poem results. For example, only show 5 actual poem results, but show all the authors in the filter panel.
+- May want to incorporate the author and title search fields into the filter panel, and have a single search input at the top that searches author, title, or lines.
