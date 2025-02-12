@@ -24,10 +24,7 @@ import {ReplaySubject, takeUntil} from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent implements OnInit, OnDestroy {
-  private readonly invalidChars = {
-    author: [";", "/"],
-    title: [";", "/"]
-  }
+  private readonly invalidChars = [";", "/"];
   private destroyed = new ReplaySubject<boolean>(1);
   author: string = "";
   title: string = "";
@@ -66,14 +63,14 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   onSearch() {
     this.poetryService.search(
-      this.sanitize(this.author, this.invalidChars.author),
-      this.sanitize(this.title, this.invalidChars.title)
+      this.sanitize(this.author),
+      this.sanitize(this.title)
     );
   }
 
-  private sanitize(value: string, invalidChars: string[]) {
+  private sanitize(value: string) {
     let cleanValue = value;
-    invalidChars.forEach(ch => {
+    this.invalidChars.forEach(ch => {
       cleanValue = cleanValue.replaceAll(ch, "");
     });
     return cleanValue.trim();

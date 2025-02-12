@@ -3,7 +3,6 @@ mvn:
 
 up:
 	docker-compose -p poetry -f docker-compose.yml up -d
-	make logs
 
 logs:
 	docker logs -f poetry-ui-1
