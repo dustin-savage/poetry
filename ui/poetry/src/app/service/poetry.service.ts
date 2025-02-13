@@ -1,6 +1,6 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Observable, ReplaySubject, take} from "rxjs";
+import {forkJoin, Observable, ReplaySubject, take} from "rxjs";
 import {Poem} from "../model/poem";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Filter} from "../model/filter";
@@ -10,9 +10,11 @@ import {Filter} from "../model/filter";
 })
 export class PoetryService {
   private poemResultUpdateEmitter = new ReplaySubject<Poem[]>();
+  private filterResultUpdateEmitter = new ReplaySubject<Poem[]>();
   private filterUpdateEmitter = new ReplaySubject<Filter[]>();
   private searchProgressEmitter = new ReplaySubject<boolean>();
-  private maxPoemCount = "1000";
+  private maxfilterCount = "1000";
+  private maxPoemCount = "5";
 
   constructor(private http: HttpClient,
               private snackbar: MatSnackBar) {
@@ -21,6 +23,9 @@ export class PoetryService {
 
   public listenForPoemResults(): Observable<Poem[]> {
     return this.poemResultUpdateEmitter.asObservable();
+  }
+  public listenForFilterResults(): Observable<Poem[]> {
+    return this.filterResultUpdateEmitter.asObservable();
   }
 
   public listenForFilterUpdates(): Observable<Filter[]> {
@@ -35,35 +40,31 @@ export class PoetryService {
     // Notify that Search is in progress
     this.searchProgressEmitter.next(true);
 
-    // Build filters
-    const filters = [{
-      name: "author",
-      value: author
-    }, {
-      name: "title",
-      value: title
-    }, {
-      name: "poemcount",
-      value: this.maxPoemCount
-    }
-    ];
 
-    // Join filter name with a comma
-    const filterNameStr: string = filters.filter(f => f.value.length)
-      .map(f => f.name).join(",");
-
-    // Join filter values with a semicolon
-    const filterValueStr: string = filters.filter(f => f.value.length)
-      .map(f => f.value).join(";");
 
     // Build url for query
-    let url = `https://poetrydb.org/${filterNameStr}/${filterValueStr}/title,author,lines`;
+    let filtersUrl = this.buildUrl(author, title, false);
+    let resultsUrl = this.buildUrl(author, title, true);
 
-    this.http.get<Poem[] | any>(url).pipe(take(1)).subscribe({
-      next: poems => {
-        if (Array.isArray(poems)) {
+    const obsArray: Observable<any>[] = [];
+    obsArray.push(this.http.get<Poem[] | any>(filtersUrl));
+    obsArray.push(this.http.get<Poem[] | any>(resultsUrl));
+    forkJoin(obsArray).pipe(take(1)).subscribe({
+      next: resultsArray => {
+        // Handle filters
+        const filterResults: Poem[] | any = resultsArray[0];
+        if (Array.isArray(filterResults)) {
           // Notify observers of results
-          this.poemResultUpdateEmitter.next(poems);
+          this.filterResultUpdateEmitter.next(filterResults);
+        } else {
+          // Notify observers: No results found.
+          this.filterResultUpdateEmitter.next([]);
+        }
+        // Handle poems
+        const poemResults: Poem[] | any = resultsArray[1];
+        if (Array.isArray(poemResults)) {
+          // Notify observers of results
+          this.poemResultUpdateEmitter.next(poemResults);
         } else {
           // Notify observers: No results found.
           this.poemResultUpdateEmitter.next([]);
@@ -83,6 +84,35 @@ export class PoetryService {
 
   selectFilter(filter: Filter) {
     this.filterUpdateEmitter.next([filter]);
+  }
+
+  private buildUrl(author: string, title: string, returnLines: boolean) {
+    // Build filters
+    const filters = [{
+      name: "author",
+      value: author
+    }, {
+      name: "title",
+      value: title
+    }, {
+      name: "poemcount",
+      value: returnLines ? this.maxPoemCount : this.maxfilterCount
+    }
+    ];
+
+    // Join filter name with a comma
+    const filterNameStr: string = filters.filter(f => f.value.length)
+      .map(f => f.name).join(",");
+
+    // Join filter values with a semicolon
+    const filterValueStr: string = filters.filter(f => f.value.length)
+      .map(f => f.value).join(";");
+
+    // What fields to return
+    const fields = returnLines ? "author,title,lines" : "author,title";
+
+    // Build url
+    return `https://poetrydb.org/${filterNameStr}/${filterValueStr}/${fields}`;
   }
 
 }
