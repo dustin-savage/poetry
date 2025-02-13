@@ -12,4 +12,7 @@
     Search
   </button>
 </div>
-<div class="count-indicator">{{resultCount}} {{resultCount === 1 ? 'result' : 'results'}}</div>
+<div class="count-indicator">
+  <span>{{displayedCount}} {{displayedCount === 1 ? 'result' : 'results'}}</span>
+  <span *ngIf="displayedCount !== totalResultCount">&nbsp;of {{totalResultCount}}</span>
+</div>

@@ -7,6 +7,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {PoetryService} from "../service/poetry.service";
 import {FormsModule} from "@angular/forms";
 import {ReplaySubject, takeUntil} from "rxjs";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-search',
@@ -17,7 +18,8 @@ import {ReplaySubject, takeUntil} from "rxjs";
     MatSelectModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
@@ -28,7 +30,8 @@ export class SearchComponent implements OnInit, OnDestroy {
   private destroyed = new ReplaySubject<boolean>(1);
   author: string = "";
   title: string = "";
-  resultCount: number = 0;
+  displayedCount: number = 0;
+  totalResultCount: number = 0;
 
   constructor(private poetryService: PoetryService,
               private changeDetectorRef: ChangeDetectorRef) {
@@ -54,9 +57,15 @@ export class SearchComponent implements OnInit, OnDestroy {
       this.onSearch();
     });
 
-    // Subscribe to results to update count.
+    // Subscribe to poem results to update displayed count.
     this.poetryService.listenForPoemResults().pipe(takeUntil(this.destroyed)).subscribe(poems => {
-      this.resultCount = (poems || []).length;
+      this.displayedCount = (poems || []).length;
+      this.changeDetectorRef.markForCheck();
+    });
+
+    // Subscribe to filter results to update total count.
+    this.poetryService.listenForFilterResults().pipe(takeUntil(this.destroyed)).subscribe(filters => {
+      this.totalResultCount = (filters || []).length;
       this.changeDetectorRef.markForCheck();
     });
   }

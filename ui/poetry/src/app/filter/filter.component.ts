@@ -40,7 +40,7 @@ export class FilterComponent {
 
   ngOnInit(): void {
     // Subscribe to results to update filters
-    this.poetryService.listenForPoemResults().pipe(takeUntil(this.destroyed))
+    this.poetryService.listenForFilterResults().pipe(takeUntil(this.destroyed))
       .subscribe(poems => {
         this.filterValues =
           (poems || [])

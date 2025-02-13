@@ -47,7 +47,8 @@ The UI is an Angular app packaged as a Docker image.
 * All data will come from the https://poetrydb.org/ api.
 * UI will make REST calls to get authors and titles.
 * UI will load initially with an unfiltered list of all authors and titles.
-* Max filters / results displayed: 1000
+* Max filter results to display: 1000 (configurable)
+* Max poem results to display: 5 (configurable)
 * Clicking an author is the same as typing the author in the search field and clicking search.
 * Clicking a title is the same as typing the title in the search field and clicking search.
 * Enter button can be pressed to initiate search from either input field (author or title).
@@ -64,7 +65,7 @@ The UI is an Angular app packaged as a Docker image.
 - Could experiment with multi-selecting filter values if the API supports it.
 - Allow searching text within the lines of the poems.
 - When populating the filters:
-  - Do a separate search that only returns title and author.
-  - Fetch a larger number filters with a smaller payload.
-  - Configure the poemcount differently for filters vs poem results. For example, only show 5 actual poem results, but show all the authors in the filter panel.
+  - Do a separate search that only returns title and author. (progress)
+  - Fetch a larger number filters with a smaller payload. (progress)
+  - Configure the poemcount differently for filters vs poem results. For example, only show 5 actual poem results, but show all the authors in the filter panel. (progress)
 - May want to incorporate the author and title search fields into the filter panel, and have a single search input at the top that searches author, title, or lines.
